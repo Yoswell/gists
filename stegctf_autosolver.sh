@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Color definitions
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -9,7 +8,6 @@ CYAN='\033[0;36m'
 PURPLE='\033[0;35m'
 NC='\033[0m'
 
-# Output functions
 success() { echo -e "${GREEN}[✓]${NC} :: $1" }
 info() { echo -e "${BLUE}[i]${NC} :: $1" }
 warning() { echo -e "${YELLOW}[!]${NC} :: $1" }
@@ -17,7 +15,47 @@ error() { echo -e "${RED}[✗]${NC} :: $1" }
 section() { echo -e "${CYAN}[ $1 ]${NC}" }
 
 #== Steg CTF Autosolver - Specialized CTF Challenge Automator
-# Focuses only on steganography and forensics (macros, binaries, audio files)
+# Description: Automated tool for solving steganography and forensics CTF challenges
+# Features:
+#   # Auto-detects file type and applies appropriate analysis
+#   # Supports multiple steganography and forensics file formats
+#   # Automated flag detection with regex patterns
+#   # Tool dependency checking and fallback methods
+
+# Function to print usage information
+print_usage() {
+    echo -e "${CYAN}[ Usage ]${NC}"
+    echo "Usage: $0 <file> [category]"
+    echo ""
+    echo "Arguments:"
+    echo "  file     # Path to the file to analyze"
+    echo "  category # Optional: Specific analysis category"
+    echo ""
+    echo "Categories:"
+    echo "  steganography # Images and audio files (auto-detected: jpg, png, wav, mp3)"
+    echo "  binary        # Executables and binaries (auto-detected: exe, elf, bin)"
+    echo "  macro_docs    # Office and PDF documents (auto-detected: doc, pdf, ppt)"
+    echo "  forensics     # PCAPs and archives (auto-detected: pcap, zip, rar)"
+    echo ""
+    echo "Examples:"
+    echo "  $0 challenge.png                  # Auto-detect category"
+    echo "  $0 secret.jpg steganography       # Force steganography analysis"
+    echo "  $0 traffic.pcap forensics         # Force forensics analysis"
+    echo "  $0 document.pdf macro_docs        # Force macro document analysis"
+    echo ""
+    echo "Supported file extensions:"
+    echo "  Images: jpg, jpeg, png, bmp, gif, tiff"
+    echo "  Audio: wav, mp3, flac, aiff, aac, ogg, m4a"
+    echo "  Binaries: exe, bin, elf, dll, so"
+    echo "  Documents: doc, docx, xls, xlsx, ppt, pptx, pdf"
+    echo "  Forensics: pcap, pcapng, cap, zip, rar, 7z, tar, gz"
+}
+
+# Check for help flag or no arguments
+if [ $# -eq 0 ] || [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    print_usage
+    exit 0
+fi
 
 # Supported file extensions
 SUPPORTED_EXTENSIONS=(
@@ -347,27 +385,19 @@ analyze_forensics() {
 
 # Main execution
 main() {
-    section "CTFAuto - Specialized CTF Analyzer"
+    section "Steg CTF Autosolver"
     
-    if [ $# -lt 1 ]; then
-        echo "Usage: $0 <file> [category]"
-        echo ""
-        echo "Supported categories:"
-        echo "  steganography - Images and audio files"
-        echo "  binary        - Executables and binaries"
-        echo "  macro_docs    - Office and PDF documents"
-        echo "  forensics     - PCAPs and archives"
-        echo ""
-        echo "If category is omitted, it will be auto-detected"
-        exit 1
-    fi
-    
+    # Parse arguments
     local file="$1"
     local category="${2:-}"
+    
+    #== Validations
+    info "Validating parameters..."
     
     # Check if file exists
     if [ ! -f "$file" ]; then
         error "File not found: $file"
+        print_usage
         exit 1
     fi
     
@@ -375,6 +405,7 @@ main() {
     if ! is_supported_file "$file"; then
         error "Unsupported file type: $file"
         info "Supported extensions: ${SUPPORTED_EXTENSIONS[*]}"
+        print_usage
         exit 1
     fi
     
@@ -382,7 +413,23 @@ main() {
     if [ -z "$category" ]; then
         category=$(get_file_category "$file")
         info "Auto-detected category: $category"
+    else
+        # Validate provided category
+        case $category in
+            "steganography"|"binary"|"macro_docs"|"forensics")
+                info "Using specified category: $category"
+                ;;
+            *)
+                error "Invalid category: $category"
+                echo "Valid categories: steganography, binary, macro_docs, forensics"
+                print_usage
+                exit 1
+                ;;
+        esac
     fi
+    
+    info "File: $file"
+    info "Category: $category"
     
     # Execute based on category
     case $category in
@@ -398,16 +445,13 @@ main() {
         "forensics")
             analyze_forensics "$file"
             ;;
-        *)
-            error "Unknown category: $category"
-            exit 1
-            ;;
     esac
     
     section "Analysis Complete"
     info "File analyzed: $file"
-    success "Done!"
+    info "Category: $category"
+    success "Analysis completed successfully!"
 }
 
-# Run main function
+# Run main function with all arguments
 main "$@"
