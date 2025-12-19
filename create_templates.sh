@@ -8,11 +8,25 @@ CYAN='\033[0;36m'
 PURPLE='\033[0;35m'
 NC='\033[0m'
 
-success() { echo -e "${GREEN}[✓]${NC} :: $1" }
-info() { echo -e "${BLUE}[i]${NC} :: $1" }
-warning() { echo -e "${YELLOW}[!]${NC} :: $1" }
-error() { echo -e "${RED}[✗]${NC} :: $1" }
-section() { echo -e "${CYAN}[ $1 ]${NC}" }
+success() { 
+    echo -e "${GREEN}[✓]${NC} :: $1" 
+}
+
+info() { 
+    echo -e "${BLUE}[i]${NC} :: $1" 
+}
+
+warning() { 
+    echo -e "${YELLOW}[!]${NC} :: $1" 
+}
+
+error() { 
+    echo -e "${RED}[✗]${NC} :: $1" 
+}
+
+section() { 
+    echo -e "${CYAN}[ $1 ]${NC}" 
+}
 
 #== Multi-language Code Templates Generator
 # Description: Creates various programming language templates and security testing files
