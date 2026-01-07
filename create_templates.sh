@@ -130,15 +130,15 @@ using System;
 using Microsoft.Extensions.Configuration;
 
 class Program {
-  static void Main(string[] args) {
-    Console.WriteLine("/* Project to test */");
-    Program program = new Program();
-    program.Test();
-  }
+    static void Main(string[] args) {
+        Console.WriteLine("/* Project to test */");
+        Program program = new Program();
+        program.Test();
+    }
 
-  private void Test() {
-    // Add C# test code here
-  }
+    private void Test() {
+        // Add C# test code here
+    }
 }
 EOF_CS_PROGRAM
 
@@ -151,19 +151,19 @@ cat > "$TEMPLATES_DIR/html_template.html" << 'EOF_HTML'
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
-  <h1>HTML Template</h1>
+    <h1>HTML Template</h1>
 </body>
 </html>
 EOF_HTML
@@ -176,16 +176,16 @@ section "Creating Multi-language Templates"
 cat > "$TEMPLATES_DIR/php_test.php" << 'EOF_PHP'
 <?php
 class PHP_test {
-  public static function main() {
-    echo "/* PHP Project to test */";
+    public static function main() {
+        echo "/* PHP Project to test */";
     
-    $app = new PHP_test();
-    $app->test();
-  }
+        $app = new PHP_test();
+        $app->test();
+    }
   
-  private function test() {
-    // Add PHP test code here
-  }
+    private function test() {
+        // Add PHP test code here
+    }
 }
 
 PHP_test::main();
@@ -194,16 +194,16 @@ EOF_PHP
 
 cat > "$TEMPLATES_DIR/javascript_test.js" << 'EOF_JS'
 class JavaScript_test {
-  static main() {
-    console.log("/* JavaScript Project to test */");
+    static main() {
+        console.log("/* JavaScript Project to test */");
     
-    const app = new JavaScript_test();
-    app.test();
-  }
+        const app = new JavaScript_test();
+        app.test();
+    }
   
-  test() {
-    // Add JavaScript test code here
-  }
+    test() {
+        // Add JavaScript test code here
+    }
 }
 
 JavaScript_test.main();
@@ -211,16 +211,16 @@ EOF_JS
 
 cat > "$TEMPLATES_DIR/powershell_test.ps1" << 'EOF_PS'
 class PowerShell_test {
-  static [void] Main() {
-    Write-Host "/* PowerShell Project to test */"
+    static [void] Main() {
+        Write-Host "/* PowerShell Project to test */"
     
-    $app = [PowerShell_test]::new()
-    $app.Test()
-  }
+        $app = [PowerShell_test]::new()
+        $app.Test()
+    }
   
-  [void] Test() {
-    # Add PowerShell test code here
-  }
+    [void] Test() {
+        # Add PowerShell test code here
+    }
 }
 
 PowerShell_test::Main()
@@ -234,14 +234,14 @@ import "fmt"
 type Go_test struct {}
 
 func main() {
-  fmt.Println("/* Go Project to test */")
+    fmt.Println("/* Go Project to test */")
   
-  app := Go_test{}
-  app.Test()
+    app := Go_test{}
+    app.Test()
 }
 
 func (g Go_test) Test() {
-  // Add Go test code here
+    // Add Go test code here
 }
 EOF_GO
 
@@ -249,35 +249,35 @@ cat > "$TEMPLATES_DIR/rust_test.rs" << 'EOF_RUST'
 struct Rust_test;
 
 impl Rust_test {
-  fn main() {
-    println!("/* Rust Project to test */");
+    fn main() {
+        println!("/* Rust Project to test */");
     
-    let app = Rust_test;
-    app.test();
-  }
+        let app = Rust_test;
+        app.test();
+    }
   
-  fn test(&self) {
-    // Add Rust test code here
-  }
+    fn test(&self) {
+        // Add Rust test code here
+    }
 }
 
 fn main() {
-  Rust_test::main();
+    Rust_test::main();
 }
 EOF_RUST
 
 cat > "$TEMPLATES_DIR/Java_test.java" << 'EOF_JAVA'
 public class Java_test {
-  public static void main(String[] args) {
-    System.out.println("/* Java Project to test */");
+    public static void main(String[] args) {
+        System.out.println("/* Java Project to test */");
     
-    Java_test app = new Java_test();
-    app.test();
-  }
+        Java_test app = new Java_test();
+        app.test();
+    }
   
-  private void test() {
-    // Add Java test code here
-  }
+    private void test() {
+        // Add Java test code here
+    }
 }
 EOF_JAVA
 
@@ -285,12 +285,12 @@ cat > "$TEMPLATES_DIR/bash_test.sh" << 'EOF_BASH'
 #!/bin/bash
 
 main() {
-  echo "/* Bash Project to test */"
-  test_func
+    echo "/* Bash Project to test */"
+    test_func
 }
 
 test_func() {
-  # Add bash test code here
+    # Add bash test code here
 }
 
 main "$@"
@@ -298,18 +298,18 @@ EOF_BASH
 
 cat > "$TEMPLATES_DIR/py_testing.py" << 'EOF_PYTHON'
 class Py_testing:
-  def main():
-    print('/* Python Project to test */')
+    def main():
+        print('/* Python Project to test */')
 
-    program = Py_testing()
-    program.test()
+        program = Py_testing()
+        program.test()
 
-  def test(self):
-    # Add Python test code here
-    pass
+    def test(self):
+        # Add Python test code here
+        pass
 
 if __name__ == '__main__':
-  Py_testing.main()
+    Py_testing.main()
 EOF_PYTHON
 
 cat > "$TEMPLATES_DIR/cpp_test.cpp" << 'EOF_CPP'
@@ -317,36 +317,36 @@ cat > "$TEMPLATES_DIR/cpp_test.cpp" << 'EOF_CPP'
 
 class CPP_test {
 public:
-  static void main() {
-    std::cout << "/* C++ Project to test */" << std::endl;
+    static void main() {
+        std::cout << "/* C++ Project to test */" << std::endl;
     
-    CPP_test app;
-    app.test();
-  }
+        CPP_test app;
+        app.test();
+    }
   
-  void test() {
-    // Add C++ test code here
-  }
+    void test() {
+        // Add C++ test code here
+    }
 };
 
 int main() {
-  CPP_test::main();
-  return 0;
+    CPP_test::main();
+    return 0;
 }
 EOF_CPP
 
 cat > "$TEMPLATES_DIR/ruby_test.rb" << 'EOF_RUBY'
 class Ruby_test
-  def self.main
-    puts "/* Ruby Project to test */"
+    def self.main
+        puts "/* Ruby Project to test */"
+        
+        app = Ruby_test.new
+        app.test
+    end
     
-    app = Ruby_test.new
-    app.test
-  end
-  
-  def test
-    # Add Ruby test code here
-  end
+    def test
+        # Add Ruby test code here
+    end
 end
 
 Ruby_test.main
@@ -354,16 +354,16 @@ EOF_RUBY
 
 cat > "$TEMPLATES_DIR/typescript_test.ts" << 'EOF_TS'
 class TypeScript_test {
-  static main(): void {
-    console.log("/* TypeScript Project to test */");
+    static main(): void {
+        console.log("/* TypeScript Project to test */");
+        
+        const app = new TypeScript_test();
+        app.test();
+    }
     
-    const app = new TypeScript_test();
-    app.test();
-  }
-  
-  test(): void {
-    // Add TypeScript test code here
-  }
+    test(): void {
+        // Add TypeScript test code here
+    }
 }
 
 TypeScript_test.main();
