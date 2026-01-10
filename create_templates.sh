@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -8,6 +9,7 @@ CYAN='\033[0;36m'
 PURPLE='\033[0;35m'
 NC='\033[0m'
 
+# Log functions
 success() { 
     echo -e "${GREEN}[✓]${NC} :: $1" 
 }
@@ -28,14 +30,14 @@ section() {
     echo -e "${CYAN}[ $1 ]${NC}" 
 }
 
-#== Multi-language Code Templates Generator
+# Multi-language Code Templates Generator
 # Description: Creates various programming language templates and security testing files
 # Features:
-#   # Creates templates for 13 different programming languages
-#   # Generates empty image files for testing
-#   # Creates security testing files with double extensions
-#   # Organized directory structure in ~/Templates
-#   # Color-coded output with status messages
+#   * Creates templates for 13 different programming languages
+#   * Generates empty image files for testing
+#   * Creates security testing files with double extensions
+#   * Organized directory structure in ~/Templates
+#   * Color-coded output with status messages
 
 # Function to print usage information
 print_usage() {
@@ -371,10 +373,7 @@ EOF_TS
 
 success "Multi-language templates created (PHP, JavaScript, PowerShell, Go, Rust, Java, Bash, Python, C++, Ruby, TypeScript)"
 
-# ---
 # Empty Image File Templates
-# ---
-
 section "Creating Empty Image Templates"
 
 touch "$TEMPLATES_DIR/empty_image.png"
@@ -394,10 +393,7 @@ EOF_SVG
 
 success "Empty image templates created (PNG, JPG, GIF, BMP, WEBP, TIFF, ICO, SVG)"
 
-# ---
 # Double Extension Templates (Educational Testing)
-# ---
-
 section "Creating Double Extension Templates"
 
 cat > "$TEMPLATES_DIR/test.php.png" << 'EOF_PHP_PNG'
@@ -436,10 +432,7 @@ chmod +x "$TEMPLATES_DIR/bash_test.sh"
 
 warning "Double extension templates created for security testing purposes"
 
-# ---
 # NEW PENTESTING TEMPLATES (ADDED)
-# ---
-
 section "Creating PDF Pentesting Templates"
 
 PDF_DIR="$TEMPLATES_DIR/pdf_pentest"
@@ -645,10 +638,7 @@ EOF
 
 success "PDF pentesting templates created"
 
-# ---
 # Office Documents with Macros
-# ---
-
 section "Creating Office Macro Templates"
 
 OFFICE_DIR="$TEMPLATES_DIR/office_macros"
@@ -678,10 +668,7 @@ EOF
 
 success "Office macro templates created"
 
-# ---
 # Web Shell Templates
-# ---
-
 section "Creating Web Shell Templates"
 
 WEB_SHELL_DIR="$TEMPLATES_DIR/web_shells"
@@ -731,10 +718,7 @@ EOF
 
 success "Web shell templates created"
 
-# ---
 # Reverse Shell Templates
-# ---
-
 section "Creating Reverse Shell Templates"
 
 REVERSE_DIR="$TEMPLATES_DIR/reverse_shells"
@@ -769,10 +753,7 @@ EOF
 
 success "Reverse shell templates created"
 
-# ---
 # File Upload Bypass Templates
-# ---
-
 section "Creating File Upload Bypass Templates"
 
 UPLOAD_DIR="$TEMPLATES_DIR/upload_bypass"
@@ -812,10 +793,7 @@ EOF
 
 success "File upload bypass templates created"
 
-# ---
 # Windows Specific Templates
-# ---
-
 section "Creating Windows Templates"
 
 WINDOWS_DIR="$TEMPLATES_DIR/windows"
@@ -845,10 +823,7 @@ EOF
 
 success "Windows templates created"
 
-# ---
 # Network Tools
-# ---
-
 section "Creating Network Tools"
 
 NETWORK_DIR="$TEMPLATES_DIR/network"
@@ -893,10 +868,7 @@ EOF
 
 success "Network tools created"
 
-# ---
 # Code Templates
-# ---
-
 section "Creating Additional Code Templates"
 
 CODE_DIR="$TEMPLATES_DIR/code_templates"
@@ -938,10 +910,7 @@ EOF
 
 success "Additional code templates created"
 
-# ---
 # Miscellaneous Files
-# ---
-
 section "Creating Miscellaneous Files"
 
 MISC_DIR="$TEMPLATES_DIR/misc"
@@ -968,10 +937,7 @@ EOF
 
 success "Miscellaneous files created"
 
-# ---
 # Finalization
-# ---
-
 section "Summary"
 
 info "Original language templates: 13"
