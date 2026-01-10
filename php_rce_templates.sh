@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -8,6 +9,7 @@ CYAN='\033[0;36m'
 PURPLE='\033[0;35m'
 NC='\033[0m'
 
+# Log functions
 success() { 
     echo -e "${GREEN}[✓]${NC} :: $1" 
 }
@@ -28,12 +30,12 @@ section() {
     echo -e "${CYAN}[ $1 ]${NC}" 
 }
 
-#== PHP Security Templates Generator
+# PHP Security Templates Generator
 # Description: Generates PHP templates for security testing and penetration testing
 # Features:
-#   # 15 different PHP templates including webshells, reverse shells, and utilities
-#   # Two modes: display templates on screen or create files in current directory
-#   # For educational and authorized security testing only
+#   * 15 different PHP templates including webshells, reverse shells, and utilities
+#   * Two modes: display templates on screen or create files in current directory
+#   * For educational and authorized security testing only
 
 # Function to print usage information
 print_usage() {
@@ -64,7 +66,7 @@ fi
 MODE="$1"
 TEMPLATE_NUM="$2"
 
-#== Validations
+# Validations
 if [ -z "$MODE" ]; then
     error "No mode specified"
     print_usage
