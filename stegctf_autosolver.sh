@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -8,6 +9,7 @@ CYAN='\033[0;36m'
 PURPLE='\033[0;35m'
 NC='\033[0m'
 
+# Log functions
 success() { 
     echo -e "${GREEN}[✓]${NC} :: $1" 
 }
@@ -28,13 +30,13 @@ section() {
     echo -e "${CYAN}[ $1 ]${NC}" 
 }
 
-#== Steg CTF Autosolver - Specialized CTF Challenge Automator
+# Steg CTF Autosolver - Specialized CTF Challenge Automator
 # Description: Automated tool for solving steganography and forensics CTF challenges
 # Features:
-#   # Auto-detects file type and applies appropriate analysis
-#   # Supports multiple steganography and forensics file formats
-#   # Automated flag detection with regex patterns
-#   # Tool dependency checking and fallback methods
+#   * Auto-detects file type and applies appropriate analysis
+#   * Supports multiple steganography and forensics file formats
+#   * Automated flag detection with regex patterns
+#   * Tool dependency checking and fallback methods
 
 # Function to print usage information
 print_usage() {
