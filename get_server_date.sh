@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -8,6 +9,7 @@ CYAN='\033[0;36m'
 PURPLE='\033[0;35m'
 NC='\033[0m'
 
+# Log functions
 success() { 
     echo -e "${GREEN}[✓]${NC} :: $1" 1>&2
 }
@@ -28,13 +30,13 @@ section() {
     echo -e "${CYAN}[ $1 ]${NC}" 1>&2
 }
 
-#== Faketime Date Fetcher
+# Faketime Date Fetcher
 # Description: Fetches remote server dates for use with faketime to bypass time restrictions
 # Features:
-#   # Installs faketime automatically if missing
-#   # Extracts date from HTTP headers in faketime-compatible format
-#   # Silent mode by default, verbose only on errors
-#   # For authorized penetration testing and CTF challenges only
+#   * Installs faketime automatically if missing
+#   * Extracts date from HTTP headers in faketime-compatible format
+#   * Silent mode by default, verbose only on errors
+#   * For authorized penetration testing and CTF challenges only
 
 # Function to print usage information
 print_usage() {
@@ -54,12 +56,12 @@ if [ $# -eq 0 ] || [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
     exit 0
 fi
 
-#== Core function definition
+# Core function definition
 getDate() {
     date -d "$(wget --method=HEAD -qSO- --max-redirect=0 $@ 2>&1 | sed -n 's/^ *Date: *//p')" "+%Y-%m-%d %H:%M:%S" 2>/dev/null
 }
 
-#== Check and install faketime (silent)
+# Check and install faketime (silent)
 check_faketime() {
     if ! command -v faketime &> /dev/null; then
         # Silent installation
@@ -74,7 +76,7 @@ check_faketime() {
     return 0
 }
 
-#== Main execution
+# Main execution
 main() {
     # Parse arguments
     local target_host="$1"
